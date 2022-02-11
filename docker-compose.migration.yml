@@ -1,0 +1,14 @@
+version: "3.1"
+
+services:
+  ps-liquibase:
+    container_name: ps-liquibase
+    image: liquibase/liquibase
+    command: --url="jdbc:mariadb://mariadb:3306/${DB_NAME}?user=${DB_USER}&password=${DB_PASSWORD}&allowMultiQueries=true" --changeLogFile=changelog.xml update
+    volumes:
+      - ./migration/changelog.xml:/liquibase/changelog.xml
+      - ./migration/sql:/liquibase/scripts
+    networks:
+      - ps-net
+networks:
+  ps-net:

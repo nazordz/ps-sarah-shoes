@@ -11,7 +11,8 @@ This is for university task purpose
 2. Clone this project
 3. Copy `.env.example` and paste as `.env`
 4. Then fill appropriate your environment
-5. Run in terminal `docker compose up -d`
-6. Wait for new images downloaded
+5. Run in terminal `docker compose -f docker-compose.migration.yml up` for create new database
+5. Run in terminal `docker compose up -d` to running in development server
+6. Wait for new images downloaded. Check logs for futher
 7. Open in browser http://localhost:8080
 

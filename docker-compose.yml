@@ -11,6 +11,8 @@ services:
       - 'mariadb_data:/var/lib/mysql'
     ports:
       - 6033:3306
+    networks:
+      - ps-net
   prestashop:
     image: prestashop/prestashop:1.7
     ports:
@@ -27,6 +29,11 @@ services:
       - '.:/var/www/html'
     depends_on:
       - mariadb
+    networks:
+      - ps-net
 volumes:
   mariadb_data:
     driver: local
+
+networks:
+  ps-net: 
