@@ -1,0 +1,32 @@
+version: '2'
+services:
+  mariadb:
+    image: mariadb:10.4.22
+    environment:
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_DATABASE=${DB_NAME}
+      - MARIADB_PASSWORD=${DB_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=root
+    volumes:
+      - 'mariadb_data:/var/lib/mysql'
+    ports:
+      - 6033:3306
+  prestashop:
+    image: prestashop/prestashop:1.7
+    ports:
+      - '8080:80'
+      # - '443:8443'
+    environment:
+      - PS_DEV_MODE=1
+      - PS_INSTALL_AUTO=0
+      - DB_SERVER=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWD=${DB_PASSWORD}
+    volumes:
+      - '.:/var/www/html'
+    depends_on:
+      - mariadb
+volumes:
+  mariadb_data:
+    driver: local
